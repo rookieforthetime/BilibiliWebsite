@@ -8,5 +8,6 @@ public class GitTest {
     @Test
     public void gitTest(){
         System.out.println("git 3");
+        System.out.println("git 4");
     }
 }
