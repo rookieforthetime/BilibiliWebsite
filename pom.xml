@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.3</version>
+    </parent>
+
+    <groupId>com.website</groupId>
+    <artifactId>BilibiliWebsite</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!--添加必要的依赖坐标-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.2.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!--下面两个是代码生成器的依赖-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <!--下面这个是配置文件中某些设定的对象的实体类实现，即本项目中的MyPCLocation类-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <phase>generate-test-resources</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--加入该插件使配置文件读取pom中的环境参数，之后将使用maven中预设的环境参数进行启动-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <useDefaultDelimiters>true</useDefaultDelimiters>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!--开发环境-->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <!--将该环境参数传递给配置文件-->
+                <profile.active>dev</profile.active>
+            </properties>
+            <activation>
+                <!--默认使用该环境-->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!--生产环境-->
+        <profile>
+            <id>pro</id>
+            <properties>
+                <profile.active>pro</profile.active>
+            </properties>
+        </profile>
+        <!--测试环境-->
+        <profile>
+            <id>test</id>
+            <properties>
+                <profile.active>test</profile.active>
+            </properties>
+        </profile>
+    </profiles>
+</project>

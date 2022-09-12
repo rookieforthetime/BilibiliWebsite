@@ -1,0 +1,59 @@
+spring:
+  profiles:
+    active: ${profile.active} # 这样写会读取POM文件中的环境参数
+  # active: dev  这样写会读取下面的环境参数
+---
+server: # 生产环境
+  port: 80
+spring:
+  config:
+    activate:
+      on-profile: pro
+---
+server: # 测试环境
+  port: 81
+spring:
+  config:
+    activate:
+      on-profile: test
+---
+server: # 开发环境
+  port: 8080
+spring:
+  config:
+    activate:
+      on-profile: dev
+  servlet:
+    multipart:
+      max-file-size: 8MB
+  datasource:
+    url: jdbc:mysql://localhost:3306/bilibiliwebsite?serverTimezone=UTC # 老版本要加serverTimezone=UTC时区设置
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+#  main:
+#    banner-mode: off # 关闭springboot图形界面
+# 开启mp的日志,输出到控制台
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  global-config:
+    # banner: false # 关闭mp图形界面
+    db-config:
+      # id-type: auto  # 设置id的生成方式
+      table-prefix: tbl_  # 相当于在实体类名之前加上tbl_ 使其与数据库中的表名匹配
+      logic-delete-field: deleted # 设置逻辑删除的字段名
+      logic-not-delete-value: 0  # 没有被删除的设置为0
+      logic-delete-value: 1  # 被删除的设置为1
+# 日志显示级别
+logging:
+  level:
+    root: info
+
+property:
+  des: 图片和视频的路径
+  path:
+    - D:\\Java\\video\\
+    - D:\\Java\\img\\
