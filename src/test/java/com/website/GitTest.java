@@ -7,6 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class GitTest {
     @Test
     public void gitTest(){
-        System.out.println("git 2");
+        System.out.println("git 3");
     }
 }
